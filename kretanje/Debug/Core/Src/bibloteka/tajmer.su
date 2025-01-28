@@ -1,0 +1,13 @@
+tajmer.c:47:6:tajmer_init	8	static
+tajmer.c:53:6:enc_init	8	static
+tajmer.c:59:1:tim2_init	16	static,ignoring_inline_asm
+tajmer.c:89:13:enc1_init	4	static
+tajmer.c:122:9:enc1_GetInc	16	static
+tajmer.c:131:13:enc2_init	4	static
+tajmer.c:163:9:enc2_GetInc	16	static
+tajmer.c:172:6:set_x	16	static
+tajmer.c:176:6:set_det	16	static
+tajmer.c:180:6:set_y	16	static
+tajmer.c:184:6:set_theta	16	static
+tajmer.c:187:6:set_test	16	static
+tajmer.c:192:6:TIM1_UP_TIM10_IRQHandler	32	static

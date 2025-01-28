@@ -1,0 +1,9 @@
+step.c:13:6:init_pwm	8	static
+step.c:36:6:init_pwm_gpio	4	static
+step.c:51:6:start_pwm	4	static
+step.c:57:6:faktor_ispune	16	static
+step.c:61:6:frekvencija	16	static
+step.c:66:6:STOP_pwm	4	static
+step.c:71:6:dizanje_gore	16	static
+step.c:82:6:dizanje_malo	16	static
+step.c:96:6:spustanje	16	static

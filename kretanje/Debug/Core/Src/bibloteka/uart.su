@@ -1,0 +1,7 @@
+uart.c:27:1:uart_init	8	static
+uart.c:33:1:uart6_init	16	static
+uart.c:87:1:uart_send_byte	16	static,ignoring_inline_asm
+uart.c:100:1:uart_pisi	16	static
+uart.c:118:1:uart_citaj	16	static
+uart.c:133:1:uart_buffer_prazan	4	static
+uart.c:146:1:USART6_IRQHandler	8	static

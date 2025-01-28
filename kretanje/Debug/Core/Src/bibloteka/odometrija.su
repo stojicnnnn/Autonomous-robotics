@@ -1,0 +1,10 @@
+odometrija.c:31:8:inc_2_rad	4	static
+odometrija.c:35:8:inc_2_mm	4	static
+odometrija.c:39:6:odometrija_init	4	static
+odometrija.c:47:6:odometrija	40	static
+odometrija.c:88:7:get_x	4	static
+odometrija.c:92:7:get_y	4	static
+odometrija.c:96:7:get_theta	4	static
+odometrija.c:100:6:set_theta_smer	4	static
+odometrija.c:104:7:get_w	4	static
+odometrija.c:108:7:get_v	4	static
