@@ -41,8 +41,8 @@ kretanje.bin \
 all: kretanje.elf secondary-outputs
 
 # Tool invocations
-kretanje.elf: $(OBJS) $(USER_OBJS) C:\Users\Nikola\Downloads\Poslednja\ verzija\kretanje\STM32F401RETX_FLASH.ld
-	arm-none-eabi-gcc -o "kretanje.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Nikola\Downloads\Poslednja verzija\kretanje\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="kretanje.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+kretanje.elf: $(OBJS) $(USER_OBJS) C:\Users\Nikola\OneDrive\Desktop\CollisionGithub\Autonomous-robotics\kretanje\STM32F401RETX_FLASH.ld
+	arm-none-eabi-gcc -o "kretanje.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Nikola\OneDrive\Desktop\CollisionGithub\Autonomous-robotics\kretanje\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="kretanje.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

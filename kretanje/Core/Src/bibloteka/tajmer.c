@@ -222,7 +222,7 @@ void TIM1_UP_TIM10_IRQHandler()
 		     	 flag_100s=true;
 	  }
 
-	  if((GPIOC->IDR & (1<<0)) | (GPIOC->IDR & (1<<2)) | (GPIOC->IDR & (1<<13))){ //zadnja strana
+	  if((GPIOC->IDR & (1<<0)) | (GPIOC->IDR & (1<<2)) | (GPIOC->IDR & (1<<14))){ //zadnja strana
 		if(det==1){
 			if(brojac==0){
 

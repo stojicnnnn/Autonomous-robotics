@@ -135,22 +135,17 @@ while(0){
 
 	      j=1;
 		  }
-		  if(j==1){ //-(60*M_PI)/180
-
-			   //napred(-100,0,M_PI,600,4,1);
-			  // Move forward
-			      napred(200, 0, 0, 300, 4, 0);  // Move forward to (200, 0)
-
-
-		  	      j=2;}
-		  	    if(j==2){ //-(60*M_PI)/180
-
-		  	    			   //napred(-100,0,M_PI,600,4,1)
-		  	    	    // Move backward
-		  	    		  	      j=2;
-
-
-	  }
+		  if(j==1){
+		  napred(300,0,0,1200,4,0); //bilo 800  -(60*M_PI)/180
+		  		 		j=2;								// x-93 y+100
+		  			  }
+		  		  else if(j==2){
+		  			  napred(50,0,0+(M_PI),300,4,1);//600,
+		  			  j=3 ;}
+		  if(j==3){
+		  		  napred(300,0,M_PI/4,1200,4,0); //bilo 800  -(60*M_PI)/180
+		  		  		 		j=4;								// x-93 y+100
+		  		  			  }
 
 
 

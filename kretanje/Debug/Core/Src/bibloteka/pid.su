@@ -4,10 +4,10 @@ pid.c:105:7:normalize_angle_nikola	32	static
 pid.c:115:7:pid_brzina	32	static
 pid.c:150:6:racunanje_brzine	16	static
 pid.c:176:6:regulacija_pozicije	48	static
-pid.c:294:6:regulacija_brzine	16	static
-pid.c:342:5:get_faza	4	static
-pid.c:346:6:set_faza	4	static
-pid.c:350:6:set_v_cr	16	static
-pid.c:353:6:set_w_cr	16	static
-pid.c:357:6:set_dist	16	static
-pid.c:360:6:set_or	16	static
+pid.c:295:6:regulacija_brzine	16	static
+pid.c:343:5:get_faza	4	static
+pid.c:347:6:set_faza	4	static
+pid.c:351:6:set_v_cr	16	static
+pid.c:354:6:set_w_cr	16	static
+pid.c:358:6:set_dist	16	static
+pid.c:361:6:set_or	16	static

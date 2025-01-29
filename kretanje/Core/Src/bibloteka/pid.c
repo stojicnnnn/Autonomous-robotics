@@ -178,10 +178,10 @@ void regulacija_pozicije(float x_ref, float y_ref, float theta_ref, float x, flo
 
 		v_pid=0;
 		w_pid=0;
-		theta=theta;
+		theta=theta+(M_PI*or);
 		dist =smer* sqrt(pow((x_ref-x),2)+pow((y_ref-y),2));
 		//distx = sqrt(pow(x_ref-x,2));
-		//disty = sqrt(pow(y_ref-y,2));
+		//disty = sqrt(pow(y_ref-y,2));<
 		phi = atan2(y_ref - y, x_ref - x);
 		phi_error = normalize_angle(phi - theta ); //promjeni ovo
 		phi_prim_error = normalize_angle(  theta_ref - theta );
@@ -191,7 +191,7 @@ void regulacija_pozicije(float x_ref, float y_ref, float theta_ref, float x, flo
 
 
 	Kp_w =9; //6 bilo 3.5 bilo
-	Kp_d = 3.8;
+	Kp_d = 2.8;
 /*
 	fleg=phi - theta;
 	if((((fleg>M_PI/2) | (fleg<-M_PI/2)))){// & (brojac==0)){
@@ -233,7 +233,7 @@ test1=1;
 				}
 		w_pid = Kp_w * phi_error;
 		v_pid = Kp_d * dist;
-		fleg=dist;
+	/*	fleg=dist;
 		if((fleg<50) & (fleg>-50)){
 			izlazak++;
 			Kp_w=0;
@@ -242,6 +242,7 @@ test1=1;
 			faza=2;
 			}
 		}
+		*/
 
 
 		greska1=(phi_error*180/M_PI);

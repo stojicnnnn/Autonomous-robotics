@@ -17,7 +17,7 @@
 void napred(float x,float y,float theta,float v_cr, float w_cr, _Bool smer ){
 	pid_init();
 	if(smer == 1){
-		set_theta_smer();
+		//set_theta_smer();
 		set_dist(-1);
 		set_or(1);
 
