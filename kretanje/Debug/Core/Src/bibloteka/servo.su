@@ -1,0 +1,3 @@
+servo.c:14:6:pca9685_init	8	static
+servo.c:23:6:servo_set_position	32	static
+servo.c:44:6:servo_set_freq	24	static

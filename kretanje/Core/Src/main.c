@@ -1,4 +1,4 @@
-/* USER COD00E BEGIN Header */
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -6,13 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -36,7 +36,12 @@
 #include "biblioteka/uart.h"
 #include "biblioteka/hvataljke.h"
 #include "biblioteka/senzori.h"
+#include "biblioteka/i2c.h"
+#include "biblioteka/servo.h"
 #include <math.h>
+#define PCA9685_I2C_ADDRESS (0x40 << 1)  // Converts 7-bit to 8-bit
+
+
 float pocetno;
 float flagic=0;
 /* USER CODE END Includes */
@@ -64,6 +69,8 @@ float test_theta=0;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,7 +90,11 @@ int main(void)
 
   /* USER CODE END 1 */
   
-       	/* MCU Configuration--------------------------------------------------------*/  	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */                                                                                                                                                                                                     HAL_Init();
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
   tajmer_init();
@@ -93,6 +104,7 @@ int main(void)
   init_PWM();
   uart_init();
  init_senzor();
+ I2C1_Init();
 
 
   /* USER CODE END Init */
@@ -107,18 +119,37 @@ int main(void)
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
 
- // lift_dizanje_vrh(sistemsko_vreme);
   /* USER CODE END 2 */
- // lift_dizanje_vrh(sistemsko_vreme);
-  //lift_spustanje(sistemsko_vreme);
-  		//AX12AsetEndless(2, 0);
 
-  		//while(sistemsko_vreme<=1000);
-  		//AX12Amove(2,1023);
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* Start scheduler */
+  //osKernelStart();
+ 
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
-
-
   /* USER CODE BEGIN WHILE */
 
 while(0){
@@ -128,7 +159,7 @@ while(0){
 
 
 }
-	  while (1) {
+	  while (0) {
 		  if(j==0){ //-(60*M_PI)/180
 	      pid_init();
 	      racunanje_brzine(0, 0);
@@ -150,88 +181,20 @@ while(0){
 
 
 	  }
+while(1){
+I2C1_Init();
 
+	if (!(I2C1->CR1 & I2C_CR1_PE)) {
+	    flagic++;  // Stop execution if I2C1 is NOT enabled
+	}
+	void pca9685_init() ;
+	servo_set_freq(50);
+	servo_set_position(1,90);
 
-
-
-
-
-  while (0)
-  {
-    /* USER CODE END WHILE */
-
-
-  //if((!(GPIOC->IDR & (1<<11))) & (flag_100s==0)){   // uslov za pocetak
-
-	//set_test(0);
-
-
-
-	//KOD ZA HOMOLOGCIJU
-/*if(faza1==0){				//ZUTA BOJA KOD PANELA skraceno
-pid_init();
-racunanje_brzine(0,0);
 
 }
-else if(faza1==1){
-rucica_napolje(sistemsko_vreme);
- napred(600,0,0,300,3,0);
- faza1=2;
+
 }
-else if(faza1==2){
- rucica_unutra(sistemsko_vreme);
- napred(0,0,M_PI,300,3,1);
- faza1=3;
-}
-else if(faza1==3){
-  faza1=4;
-}*/
-
-
-	/*if(faza1==0){
-				pid_init();
-					 racunanje_brzine(0,0);
-			 	 }
-			    else if(faza1==1){
-
-				  napred(700,200,0,600,4,0);
-				  faza1=2;
-			    }
-				  else if(faza1==2){
-					//  napred(0,0,M_PI,600,4,1);
-			 	  faza1=3;
-				  }
-				  else if(faza1==3){
-					//  hvataljka1_otvori(sistemsko_vreme);
-					//  hvataljka2_otvori(sistemsko_vreme);
-					// napred(483,-530,0,400,4,0);
-			 		//faza1=4;								// x-93 y+100
-				  }*/
-
-
-
-
-
- /*	 }
-else{
-	 racunanje_brzine(0,0);
-	 set_test(1);
-}*/
-  }
- /* else{
-  	set_test(1);
-  	motor2_set_PWM(0);  //TESTIRATI
-  	motor1_set_PWM(0);
-
-
-  	// racunanje_brzine(0,0);
-  }*/
-  }
-
-    /* USER CODE BEGIN 3 */
-
-
-  /* USER CODE END 3 */
 
 
 /**
@@ -277,10 +240,66 @@ void SystemClock_Config(void)
   }
 }
 
-
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used 
+  * @retval None
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void const * argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END 5 */ 
+}
+
+/* USER CODE BEGIN Header_Task2_init */
+/**
+* @brief Function implementing the Task2 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task2_init */
+void Task2_init(void const * argument)
+{
+  /* USER CODE BEGIN Task2_init */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Task2_init */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM9 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM9) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -288,12 +307,9 @@ void SystemClock_Config(void)
   */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-
-  /* USER CODE END Error_Handler_Debug */
 
 }
+
 
 #ifdef  USE_FULL_ASSERT
 /**

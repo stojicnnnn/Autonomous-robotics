@@ -24,11 +24,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Core/Inc/biblioteka/tajmer.h ../Core/Inc/biblioteka/pid.h \
  ../Core/Inc/biblioteka/step.h ../Core/Inc/biblioteka/pwm.h \
  ../Core/Inc/biblioteka/motor.h ../Core/Inc/biblioteka/odometrija.h \
  ../Core/Inc/biblioteka/kretanje.h ../Core/Inc/biblioteka/uart.h \
- ../Core/Inc/biblioteka/hvataljke.h ../Core/Inc/biblioteka/senzori.h
+ ../Core/Inc/biblioteka/hvataljke.h ../Core/Inc/biblioteka/senzori.h \
+ ../Core/Inc/biblioteka/i2c.h ../Core/Inc/biblioteka/servo.h
 
 ../Core/Inc/main.h:
 
@@ -82,6 +85,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+
 ../Core/Inc/biblioteka/tajmer.h:
 
 ../Core/Inc/biblioteka/pid.h:
@@ -101,3 +108,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/biblioteka/hvataljke.h:
 
 ../Core/Inc/biblioteka/senzori.h:
+
+../Core/Inc/biblioteka/i2c.h:
+
+../Core/Inc/biblioteka/servo.h:
