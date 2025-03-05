@@ -11,44 +11,38 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-void pca9685_init() {
-    I2C1_Start();
-    I2C1_Write(0x40 << 1);  // PCA9685 I2C Address
-    I2C1_Write(0x00);  // MODE1 register
-    I2C1_Write(0x10);  // Sleep mode to set prescaler
-    I2C1_Stop();
-}
 
+char data;
+ uint8_t data_rec[6];
 
-void servo_set_position(uint8_t motor, uint8_t position)
-{
-    uint8_t data[4];
-    uint16_t pwm_val = ((position * (410 - 205)) / 180) + 205 ;  // Map position (0-180°) to PWM range (0-4095)
+ void PCA9685_WriteReg(char regAddr, char data) {
+     write(regAddr,data);
+ }
 
-    data[0] = 0x00;  // ON_L
-    data[1] = 0x00;  // ON_H
-    data[2] = pwm_val & 0xFF;  // OFF_L
-    data[3] = pwm_val >> 8;    // OFF_H
+ void PCA9685_SetPWM(char channel, int on, int off) {
+     char data[4];
+     data[0] = on & 0xFF;       // Lower 8 bits of ON time
+     data[1] = (on >> 8) & 0x0F; // Upper 4 bits of ON time
+     data[2] = off & 0xFF;       // Lower 8 bits of OFF time
+     data[3] = (off >> 8) & 0x0F; // Upper 4 bits of OFF time
 
-    uint8_t register_address = 0x06 + (motor * 4);
+     write(0x06 + 4 * channel,data);
 
-    I2C1_Start();
-    I2C1_Write(0x40 << 1);  // PCA9685 I2C Address
-    I2C1_Write(register_address);  // Servo motor register
-    for (int i = 0; i < 4; i++) {
-        I2C1_Write(data[i]);
-    }
-    I2C1_Stop();
-}
+ }
 
-void servo_set_freq(uint16_t freq)
-{
-    uint8_t prescale = (25000000 / (4096 * freq)) - 1;
+ void PCA9685_Init() {
+     PCA9685_WriteReg(0x00, 0x20);  // MODE1: Enable auto-increment
+     PCA9685_WriteReg(0x01, 0x04);  // MODE2: Configure output mode
+ }
 
-    I2C1_Start();
-    I2C1_Write(0x40 << 1);
-    I2C1_Write(0x00);  // MODE1 register
-    I2C1_Write(0xFE);  // PRE_SCALE register
-    I2C1_Write(prescale);
-    I2C1_Stop();
-}
+ void SetServoPWM(char channel, int pulseLength) {
+     PCA9685_SetPWM(channel, 0, pulseLength);
+ }
+
+ void write (uint8_t reg, char value)
+ {
+ 	char data[1];
+ 	data[0] = value;
+
+ 	i2c1_BurstWrite( DEVICE_ADDR, reg,1, data) ;
+ }

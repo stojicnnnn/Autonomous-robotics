@@ -94,23 +94,20 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	HAL_Init();
 
-  /* USER CODE BEGIN Init */
-  tajmer_init();
-  enc_init();
-  motor_init();
-  pid_init();
-  init_PWM();
-  uart_init();
- init_senzor();
- I2C1_Init();
+	/* USER CODE BEGIN Init */
+	tajmer_init();
+	enc_init();
+	motor_init();
+	pid_init();
+	init_PWM();
+	uart_init();
+	init_senzor();
+	I2C1_Init();
+	PCA9685_Init();
 
 
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -152,47 +149,35 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-while(0){
-	motor2_set_PWM(1000);  //TESTIRATI
-	  	motor1_set_PWM(1000);
+	while (0) {
+		motor2_set_PWM(1000);  //TESTIRATI
+		motor1_set_PWM(1000);
 
-
-
-}
-	  while (0) {
-		  if(j==0){ //-(60*M_PI)/180
-	      pid_init();
-	      racunanje_brzine(0, 0);
-
-	      j=1;
-		  }
-		  if(j==1){
-		  napred(300,0,0,1200,4,0); //bilo 800  -(60*M_PI)/180
-		  		 		j=2;								// x-93 y+100
-		  			  }
-		  		  else if(j==2){
-		  			  napred(50,0,0+(M_PI),300,4,1);//600,
-		  			  j=3 ;}
-		  if(j==3){
-		  		  napred(300,0,M_PI/4,1200,4,0); //bilo 800  -(60*M_PI)/180
-		  		  		 		j=4;								// x-93 y+100
-		  		  			  }
-
-
-
-	  }
-while(1){
-I2C1_Init();
-
-	if (!(I2C1->CR1 & I2C_CR1_PE)) {
-	    flagic++;  // Stop execution if I2C1 is NOT enabled
 	}
-	void pca9685_init() ;
-	servo_set_freq(50);
-	servo_set_position(1,90);
+	while (0) {
+		if (j == 0) { //-(60*M_PI)/180
+			pid_init();
+			racunanje_brzine(0, 0);
 
+			j = 1;
+		}
+		if (j == 1) {
+			napred(300, 0, 0, 1200, 4, 0); //bilo 800  -(60*M_PI)/180
+			j = 2;								// x-93 y+100
+		} else if (j == 2) {
+			napred(50, 0, 0 + (M_PI), 300, 4, 1);						//600,
+			j = 3;
+		}
+		if (j == 3) {
+			napred(300, 0, M_PI / 4, 1200, 4, 0); //bilo 800  -(60*M_PI)/180
+			j = 4;								// x-93 y+100
+		}
 
-}
+	}
+	while (1) {
+		SetServoPWM(0, 1000);  // Set PWM to raw value 1000
+		for (volatile int i = 0; i < 1000000; i++);  // Delay
+	}
 
 }
 
@@ -251,34 +236,7 @@ void SystemClock_Config(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END 5 */ 
-}
 
-/* USER CODE BEGIN Header_Task2_init */
-/**
-* @brief Function implementing the Task2 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_Task2_init */
-void Task2_init(void const * argument)
-{
-  /* USER CODE BEGIN Task2_init */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END Task2_init */
-}
 
 /**
   * @brief  Period elapsed callback in non blocking mode

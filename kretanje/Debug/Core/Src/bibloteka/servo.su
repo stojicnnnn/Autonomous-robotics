@@ -1,3 +1,5 @@
-servo.c:14:6:pca9685_init	8	static
-servo.c:23:6:servo_set_position	32	static
-servo.c:44:6:servo_set_freq	24	static
+servo.c:18:7:PCA9685_WriteReg	16	static
+servo.c:22:7:PCA9685_SetPWM	32	static
+servo.c:33:7:PCA9685_Init	8	static
+servo.c:38:7:SetServoPWM	16	static
+servo.c:42:7:write	24	static

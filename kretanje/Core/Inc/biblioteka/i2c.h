@@ -14,12 +14,6 @@
 
 
 void I2C1_Init(void);
-void I2C1_Start(void);
-void I2C1_Stop(void);
-void I2C1_Write(uint8_t data);
-uint8_t I2C1_Read(uint8_t ack);
-void I2C1_WriteRegister(uint8_t deviceAddr, uint8_t regAddr, uint8_t data);
-uint8_t I2C1_ReadRegister(uint8_t deviceAddr, uint8_t regAddr);
-void pca9685_init();
-uint8_t I2C1_CheckDevice(uint8_t address);
+void i2c1_BurstWrite(char slave_address, char memory_address, int number_bytes_to_write, char *data);
+
 #endif /* INC_I2C_H_ */
