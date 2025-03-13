@@ -15,6 +15,6 @@
 void init_PWM();
 void motor1_set_PWM(int16_t duc);
 void motor2_set_PWM(int16_t duc);
-
+void set_PWM_duty_cycle(TIM_TypeDef *TIMx, uint8_t channel, uint32_t duty_cycle_percentage) ;
 
 #endif /* INC_BIBLIOTEKA_PWM_H_ */
