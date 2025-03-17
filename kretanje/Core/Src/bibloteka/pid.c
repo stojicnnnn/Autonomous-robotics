@@ -162,13 +162,9 @@ void racunanje_brzine(float v, float w){
 		   }
 
 	  vel_d= v + w*(razmak_tockova/2);
-	  vel_l= v - w*(razmak_tockova/2);}
+	  vel_l= v - w*(razmak_tockova/2);
+	}
 
-	 /* int16_t vel_d1 = (int16_t)vel_d;
-	  int16_t vel_l1 = (int16_t)vel_l;
-
-	 motor1_set_PWM(vel_d1);
-	 motor2_set_PWM(vel_l1);*/
 
 
 
@@ -180,8 +176,6 @@ void regulacija_pozicije(float x_ref, float y_ref, float theta_ref, float x, flo
 		w_pid=0;
 		theta=theta+(M_PI*or);
 		dist =smer* sqrt(pow((x_ref-x),2)+pow((y_ref-y),2));
-		//distx = sqrt(pow(x_ref-x,2));
-		//disty = sqrt(pow(y_ref-y,2));<
 		phi = atan2(y_ref - y, x_ref - x);
 		phi_error = normalize_angle(phi - theta ); //promjeni ovo
 		phi_prim_error = normalize_angle(  theta_ref - theta );
@@ -192,15 +186,6 @@ void regulacija_pozicije(float x_ref, float y_ref, float theta_ref, float x, flo
 
 	Kp_w =9; //6 bilo 3.5 bilo
 	Kp_d = 2.8;
-/*
-	fleg=phi - theta;
-	if((((fleg>M_PI/2) | (fleg<-M_PI/2)))){// & (brojac==0)){
-		dist= -fabs(dist);
-		brojac++;
-	}
-	else
-		dist=fabs(dist);
-*/
 	greska=(phi_prim_error*180/M_PI);
 
 	if(faza == 0){
@@ -335,7 +320,7 @@ void regulacija_brzine(){
 	 u_l=pid_brzina(4, 0.105, 0, v_lref, v_l); //kp 4.3 bilo
 	 u_d=pid_brzina(4, 0.105, 0, v_dref, v_r);
 
-	 motor1_set_PWM((int16_t)u_d); //probaj ovde da dodas mnozenje sa -or ili tako nes
+	 motor1_set_PWM((int16_t)u_d); 
 	 motor2_set_PWM((int16_t)u_l);
 }
 
