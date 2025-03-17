@@ -98,7 +98,7 @@ static void enc1_init()
 	GPIOA->MODER |=  (0b10 << 5*2); //A5
 
 	GPIOB->AFR[0] |=  (0b0001 << 3* 4);
-	GPIOA->AFR[0] |=  (0b0001 << 5* 4);//SAD OVDE OBRNUO
+	GPIOA->AFR[0] |=  (0b0001 << 5* 4);
 
 
 	RCC->APB1ENR |= (0b1 << 0);

@@ -54,7 +54,7 @@ void start_pwm(){
 
 }
 
-void faktor_ispune(float a){
+void duty_cycle(float a){
 	TIM9->CCR1 = (420-1)*a; //FAKTOR ISPUNE ?
 }
 
@@ -68,40 +68,40 @@ void STOP_pwm(){
 }
 
 
-void dizanje_gore (int pocetno_vreme, int arr){
+void lift_high (int start_time, int arr){
 	frekvencija(arr);
-	faktor_ispune(0.5);
+	duty_cycle(0.5);
 	GPIOB->ODR |= (1 << 5);//input 1 //1    D4   SLP  sad je ddir
 
-	while(sistemsko_vreme < pocetno_vreme + 1300);
+	while(system_time < start_time + 1300);
 
-	faktor_ispune(0.0);
+	duty_cycle(0.0);
 
 }
 
-void dizanje_malo (int pocetno_vreme, int arr){
+void lift_mid (int start_time, int arr){
 
 
     frekvencija(arr);  //200h
-	faktor_ispune(0.5);
+	duty_cycle(0.5);
 	GPIOB->ODR |= (1 << 5);//input 1 //1    D4   SLP  sad je ddir
 
-	while(sistemsko_vreme < pocetno_vreme + 100);
+	while(system_time < start_time + 100);
 
-	faktor_ispune(0.0);
+	duty_cycle(0.0);
 
 }
 
 
-void spustanje (int pocetno_vreme, int arr){
+void lowering (int start_time, int arr){
 
 	frekvencija(arr);  //100h
-	faktor_ispune(0.5);
+	duty_cycle(0.5);
 	GPIOB->ODR &= ~(1 << 5);//input 1 //1    D4   SLP  sad je ddir
 
-	while(sistemsko_vreme < pocetno_vreme + 2300);
+	while(system_time < start_time + 2300);
 
-	faktor_ispune(0.0);
+	duty_cycle(0.0);
 
 }
 

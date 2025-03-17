@@ -11,14 +11,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define MAX_VELICINA_BUFFERA 30
+#define MAX_BUFFER_LENGHT 30
 
 volatile static uint8_t input = 0;
 
-volatile static uint8_t buffer[MAX_VELICINA_BUFFERA];
-volatile static uint8_t velicina = 0;
-volatile static uint8_t index_pisi = 0;
-volatile static uint8_t index_citaj = 0;
+volatile static uint8_t buffer[MAX_BUFFER_LENGHT];
+volatile static uint8_t size = 0;
+volatile static uint8_t index_write = 0;
+volatile static uint8_t index_read = 0;
 
 static void
 uart6_init ();
@@ -40,7 +40,7 @@ uart6_init ()
 
   GPIOA->MODER &= ~(0b11 << TX_PIN * 2);
   GPIOA->MODER |= (0b10 << TX_PIN * 2);
- GPIOA->MODER &= ~(0b11 << RX_PIN * 2);
+  GPIOA->MODER &= ~(0b11 << RX_PIN * 2);
   GPIOA->MODER |= (0b10 << RX_PIN * 2);
 
   // Podešavanje da TX pin bude pull up open drain
@@ -76,17 +76,17 @@ uart6_init ()
   USART6->CR3 |= (0b1 << 3);
 
   // Odabir prekidne rutike koja se izvršava
-  uint8_t const USART6_PREKID = 71;
-  NVIC->ISER[USART6_PREKID / 32] |= (0b1 << USART6_PREKID % 32);
+  uint8_t const USART6_INTERRUPT = 71;
+  NVIC->ISER[USART6_INTERRUPT / 32] |= (0b1 << USART6_INTERRUPT % 32);
 
   // Uključivanje UART-a
   USART6->CR1 |= (0b1 << 13);
 }
 
 void
-uart_send_byte (uint8_t podatak)
+uart_send_byte (uint8_t data)
 {
-  USART6->DR = podatak;
+  USART6->DR = data;
 
   while (!(USART6->SR & (0b1 << 6)))
     {
@@ -97,42 +97,42 @@ uart_send_byte (uint8_t podatak)
 
 // Piši u buffer
 void
-uart_pisi (uint8_t podatak)
+uart_pisi (uint8_t data)
 {
-  if (velicina != MAX_VELICINA_BUFFERA)
+  if (size != MAX_BUFFER_LENGHT)
     {
-      buffer[index_pisi] = podatak;
-      index_pisi = (index_pisi + 1) % MAX_VELICINA_BUFFERA;
-      velicina++;
+      buffer[index_write] = data;
+      index_write = (index_write + 1) % MAX_BUFFER_LENGHT;
+      size++;
     }
   else
     {
-      buffer[index_pisi] = podatak;
-      index_pisi = (index_pisi + 1) % MAX_VELICINA_BUFFERA;
-      index_citaj = (index_citaj + 1) % MAX_VELICINA_BUFFERA;
+      buffer[index_write] = data;
+      index_write = (index_write + 1) % MAX_BUFFER_LENGHT;
+      index_read = (index_read + 1) % MAX_BUFFER_LENGHT;
     }
 }
 
 // Čitaj iz buffera
 uint8_t
-uart_citaj ()
+uart_read ()
 {
-  uint8_t podatak;
+  uint8_t data;
 
-  if (velicina != 0)
+  if (size != 0)
     {
-      podatak = buffer[index_citaj];
-      index_citaj = (index_citaj + 1) % MAX_VELICINA_BUFFERA;
-      velicina--;
+      data = buffer[index_read];
+      index_read = (index_read + 1) % MAX_BUFFER_LENGHT;
+      size--;
     }
 
-  return podatak;
+  return data;
 }
 
 bool
-uart_buffer_prazan ()
+uart_buffer_empty ()
 {
-  if (velicina == 0)
+  if (size == 0)
     {
       return true;
     }
